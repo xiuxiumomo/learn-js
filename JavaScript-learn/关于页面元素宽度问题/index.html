@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #box {
+        height: 1000px;
+        width: 100px;
+        border: 2px solid #000;
+        background-color: #63a3f8;
+        padding: 30px;
+        color: #fff;
+    }
+    #box-1{
+        width: 500px;
+        height: 500px;
+        overflow: scroll;
+        background: #ccc;
+    }
+    #box-1-1{
+        height: 800px;
+        background-color: #999;
+        padding: 20px;
+        border: 2px solid #CC0000;
+    }
+    #box-3{
+        height: 300px;
+        width: 300px;
+        background-color: blue;
+    }
+</style>
+<body>
+<div id="box">
+    aaaa
+</div>
+<div id="box-1">
+    <div id="box-1-1">
+        cccc
+    </div>
+</div>
+<div id="box-3"></div>
+<script>
+
+    // let clientHeight = document.getElementById('box').clientHeight; // padding(*2)+height
+    // let offsetHeight = document.getElementById('box').offsetHeight; // border(*2)+padding(*2)+height
+    // let scrollHeight = document.getElementById('box-1').scrollHeight; // box-1的scrollHeight 是box-1-1的offsetHeight
+    // let winHeight = document.documentElement.clientHeight; //当前页面的宽度
+    // let offSetHeight = document.getElementById('box-1').offsetTop; //相对于网页顶部的距离 164box的offsetHeight
+
+    // window.addEventListener('scroll',function(){
+    //     let scrollHeight = document.documentElement.scrollHeight; //滚动页面高度
+    //     let scrollTop = document.documentElement.scrollTop; //window滚动条
+    //     let wHeight = document.documentElement.clientHeight; //window高度
+    //     if(scrollTop+wHeight>=scrollHeight){
+    //         console.log('滚动到底了');
+    //     }else{
+    //         console.log('没到')
+    //     }
+    // })
+    let offsetTop2 = document.getElementById('box-3').getBoundingClientRect().top; //代替offsetTop大小是固定的
+    window.addEventListener('scroll',function(){
+        let offsetTop = document.getElementById('box-3').offsetTop; //代替offsetTop大小是固定的
+        let winHeight = document.documentElement.clientHeight;
+        let scrollTop= document.documentElement.scrollTop;
+        return offsetTop<=(scrollTop+winHeight);
+    })
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
