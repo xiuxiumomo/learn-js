@@ -47,28 +47,65 @@
         opacity: 0;
         transition: all .4s cubic-bezier(.4,0,.2,1);
     }
+    #i-box{
+        padding: 30px 20px;
+        width: 284px;
+        height: 180px;
+        background-color: #999;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    #i-box .item{
+        display: inline-block;
+        width: 72px;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid #ccc;
+        text-align: center;
+
+    }
+    #i-box .item.active{
+        width: 78px;
+        border: 1px solid #63a3f8;
+
+
+    }
 </style>
 <body>
-<div class="box">
-    <div class="item">
-        <div class="title">APP解决方案</div>
-        <div class="content">我是文字字我是文字字字我是文字字字我是文字字字我是文字字字我是文字字字字</div>
-    </div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
+<div id="i-box">
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item active">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
+    <div class="item">选项一点</div>
 </div>
-<script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>
-<script>
-    $('.item').hover(function(){
-        $(this).css({background:'rgba(220,20,60,0.5)'});
-        $(this).find('.title').css({top:'20%'});
-        $(this).find('.content').css({opacity:'1',bottom: '40%'});
-    },function(){
-        $(this).css({background:'rgba(0,0,0,.5)'});
-        $(this).find('.title').css({top:'50%'});
-        $(this).find('.content').css({opacity:'0',bottom: '5%'});
-    })
-</script>
+<!--<div class="box">-->
+
+    <!--<div class="item">-->
+        <!--<div class="title">APP解决方案</div>-->
+        <!--<div class="content">我是文字字我是文字字字我是文字字字我是文字字字我是文字字字我是文字字字字</div>-->
+    <!--</div>-->
+    <!--<div class="item"></div>-->
+    <!--<div class="item"></div>-->
+    <!--<div class="item"></div>-->
+<!--</div>-->
+<!--<script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>-->
+<!--<script>-->
+    <!--$('.item').hover(function(){-->
+        <!--$(this).css({background:'rgba(220,20,60,0.5)'});-->
+        <!--$(this).find('.title').css({top:'20%'});-->
+        <!--$(this).find('.content').css({opacity:'1',bottom: '40%'});-->
+    <!--},function(){-->
+        <!--$(this).css({background:'rgba(0,0,0,.5)'});-->
+        <!--$(this).find('.title').css({top:'50%'});-->
+        <!--$(this).find('.content').css({opacity:'0',bottom: '5%'});-->
+    <!--})-->
+<!--</script>-->
 </body>
 </html>

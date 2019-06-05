@@ -225,8 +225,8 @@ class NumberChange {
         if (this.loopCount <= this.opt.speed) {
             this.opt.onUpdate();
         } else {
-            this.tempValue = (this.opt.aimNum).toFixed(this.opt.eNumber);
-            this.opt.onComplete();
+            this.tempValue = (this.opt.aimNum).toFixed(this.opt.eNumber); //最终结果采用传入的结果
+            this.opt.onComplete(); //结束后的回调
             clearInterval(this.interval)
         }
 
@@ -236,8 +236,107 @@ class NumberChange {
 }
 ~~~
 
+~~~
+使用方法：先引入上面封装好的
+let num = new NumberChange({
+    startNum: 10, //起始值
+    aimNum: 100, //变化量
+    speed: 300, //持续总时间
+    effect: 'Quad',
+    eNumber: 0,//有效数
+    onUpdate(){
+    //
+
+    },
+    onComplete(){
+
+    }
+
+})
+~~~
+
+效果:
+![](https://user-gold-cdn.xitu.io/2019/6/5/16b26643b0d56500?w=377&h=649&f=gif&s=42844)
+
+由此可以引申出另外一个抽奖效果，转盘开始到结束，速度会越来越慢，直到停止。常见的有转盘抽奖和9宫格抽奖原理大致相同需要确定抽奖的是:中奖的id(由后端计算出，前端显示)，转盘转动的圈数
+总共几个格子
+
+~~~
+class Lottery {
+    constructor(opt) {
+        let deFault = {
+            winId: 0, //获胜的ID
+            round: 5, //旋转圈
+            duration: 300, //动画时间
+            itemNum: 8, //总共几个各格子
+            effect: 'Quad', //动画效果
+            onUpdate: () => {
+
+            },
+            onComplete: () => {
+
+            } //回调函数
+        }
+        this.options = Object.assign(deFault, opt);
+        this.currentId = 0; //当前的选中项目
+        this.change = this.options.round * this.options.itemNum + this.options.winId; //变化的总量
+        this.interval = null;
+        this.loopCount = 0; //开始值
+        this.init();
+    }
+    init() {
+        this.interval = setInterval(() => {
+            this.changeData()
+        }, 1000 / 60)
+    }
+    changeData() {
+        this.loopCount++;
+        let NowTotal = Tween[this.options.effect].easeOut(this.loopCount, 0, this.change, this.options.duration);
+        //当前id
+        this.currentId = (Math.ceil(NowTotal) % this.options.itemNum); //计算当前中奖的项目
+        if (this.loopCount <= this.options.duration) {
+            //更新中的回调
+            this.options.onUpdate()
+        } else {
+            clearInterval(this.interval);
+            //结束时的回调
+            this.options.onComplete()
+        }
+    }
 
 
 
 
+}
+~~~
 
+使用方法
+
+~~~
+
+let lottery = new Lottery({
+    winId: winId, //获胜的ID
+    round: 4, //旋转圈
+    duration: 300, //动画时间
+    itemNum: 8, //总共几个各格子
+    effect: 'Quad', //动画效果可选
+    onUpdate: () => {
+        that.setData({
+            ['lotteryData.active_num']: lottery.currentId, //显示当前激活项
+            ['lotteryData.canRoll']: false //抽奖中-阻止转动
+        })
+
+    },
+    onComplete: () => {
+        that.setData({
+            ['lotteryData.canRoll']: true
+        })
+
+
+    }
+})
+~~~
+
+
+
+![](https://user-gold-cdn.xitu.io/2019/6/5/16b2673db38a7fbf?w=360&h=601&f=gif&s=908579)
