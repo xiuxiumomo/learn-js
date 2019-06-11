@@ -13,11 +13,12 @@ vue全家桶+elementui,毕竟很多公共组件elmentui自带了，很方便也�
 * 2.公共的通用组件，比如：回到顶部，未登录时弹出的弹窗等。
 * 3.一套less(variable常量)，用于全局匹配按钮，文字等颜色。
 * 4.一套axios请求库，封装好ajax请求包含(get,post,put,delete,patch)等。
-* 5.模块化router路由来控制不同页面。
-* 6.模块化$\color{#ff0000}{store}$来控制所有全局数据(包含axios请求的结果)。
-* 7.一套mixin封装各个页面需要用到的方法。
-* 8.一份utils 里面包含validate.js以及index.js 包含验证等常用方法。
-* 9.一份permission.js，控制token的传递。以及路由页面切换(权限等问题)。
+* 5.一份api文件里面保存所有接口请求后的接口。
+* 6.模块化router路由来控制不同页面。
+* 7.模块化$\color{#ff0000}{store}$来控制所有全局数据(包含axios请求的结果)。
+* 8.一套mixin封装各个页面需要用到的方法。
+* 9.一份utils 里面包含validate.js以及index.js 包含验证等常用方法。
+* 10.一份permission.js，控制token的传递。以及路由页面切换(权限等问题)。
 
 ## 项目结构
 
@@ -109,6 +110,368 @@ const goTop = {
     }
 }
 export default goTop;
+//在main.js中引入 并且Vue.use(你的组件)，在页面中直接使用该组件即可。
 
 ~~~
+
+3.less常量,写在less中
+~~~
+@import "./base";//覆盖默认
+@import "./mixin";//混合
+@import "./variable";//常量
+@import "./modules/home";//首页
+//直接在main.js中引入 index.less
+~~~
+
+4.封装axios请求库，卸载utils.js新建request.js
+
+~~~
+import axios from "axios";//axios库
+import qs from "qs"; //参数序列化
+import { getToken,removeToken,removeNickname } from "@/utils/auth"; //引入token
+import { Message, MessageBox } from "element-ui"; //弹出层
+let token = getToken();
+const service = axios.create({
+    //baseURL: process.env.BASE_API, // 这里不需填写用代理
+    timeout: 15000 // 请求超时时间
+});
+// request拦截器
+service.interceptors.request.use(
+    config => {
+        config.headers["token"] = `${token}`; //所有的请求中把token放在头部
+        if (config.method == "post" || config.method == "put") {
+             //去除空的字段
+            if (config.data) {
+                let data = JSON.parse(JSON.stringify(config.data));
+                for (let k in data) {
+                    if (data[k] === "") {
+                        delete config.data[k];
+                    }
+                }
+                config.data = qs.stringify(config.data);
+            }
+        } else {
+            let params = JSON.parse(JSON.stringify(config.params));
+            for (let k in params) {
+                if (params[k] === "") {
+                    delete config.params[k];
+                }
+            }
+
+        }
+        return config;
+    },
+    error => {
+        Promise.reject(error);
+    }
+);
+
+// respone拦截器
+service.interceptors.response.use(
+    response => {
+        //请求出错对应的关系
+        const res = response.data; //接口res
+
+        if (response.status !== 200 ) {
+            Message({
+                message: "出错了~",
+                type: "error",
+                duration: 5 * 1000
+            });
+
+        }
+        if(res.code==401){ //处理token失效
+
+
+        }
+
+        return res;
+    },
+    error => {
+        console.log("err" + error);
+        Message({
+            message: '请求出错'
+        });
+        return Promise.reject(error);
+    }
+);
+
+export default service;
+
+//与之相对应的代理关系
+ proxyTable: {
+    "/api/v1":{
+        target: "http://newpc.yyuexs.com/",
+        changeOrigin: true
+    }
+
+ },
+
+~~~
+
+5.api文件保存所有的接口请求的接口
+~~~
+    - api
+        - module
+            - A.js
+        - index.js
+    //以home为例子
+    //在module中
+    import request from '@/utils/request';
+    export  function getBanner(params){
+        return request({
+            url: '/api/v1/adv',
+            method: 'get',
+            params
+        })
+    }
+    //在index.js里面
+    import * as app from './modules/app'; //全局app
+    import * as home from "./modules/home"; // 首页
+    export { app,home };
+~~~
+
+6.模块化路由,注册登录模块，书籍模块等不同模块单独放一份js文件，在index中引入。有利于项目维护，结构清晰。
+~~~
+    - router
+        - module
+            - a.js
+            - b.js
+        - index.js
+
+        import Vue from 'vue';
+        import Router from 'vue-router';
+        Vue.use(Router);
+        import A from './modules/A';
+        import B from './modules/B';
+        let routes = [
+            {
+                path: '/',
+                name: '',
+                redirect: '/home',
+                children: []
+            },
+            {
+                path: '/home',
+                name: 'home',
+                component: () => import('@/views/home/index'),
+                children: [],
+                meta: {
+                    title: '首页'
+                }
+            },
+
+            ...A,
+            ...B,
+            {
+                path: '/404',
+                component: () => import('@/views/404'),
+                name: '404',
+                hidden: true
+            },
+            {
+                path: '*',
+                redirect: '/404',
+                component: () => import('@/views/404'),
+                hidden: true
+            }
+        ];
+
+        export default new Router({
+            mode: 'history', //不加/
+            routes,
+            scrollBehavior(to,from,savePosition){
+                if(savePosition){
+                    return savePosition;
+                }else{
+                    return {  //确保跳转到新的页面滚动条设为 0,0
+                        x: 0,
+                        y: 0
+                    }
+                }
+            }
+        });
+
+~~~
+
+7.模块化store。所有的axios请求结果全部过一遍vuex。然后在每一个页面中mounted时候触发。优点：如果接口好几个页面都要用，这样写极为方便。
+而且每一个模块的接口很清晰，有利于修改和查找错误。
+~~~
+    - store
+        - getters
+            - A.js
+            - B.js
+        - module
+            - A.js
+            - B.js
+        - getters.js
+        - index.js
+    以home为例子
+
+    //modules里面
+    import { home as api } from "@/api/index";
+    const home = {
+        state: {
+            bannerList: {
+                banner_data: [
+                    {
+                        "id": 190,
+                        "title": "测试1",
+                        "to_type": 1,
+                        "to_value": "2100",
+                        "to_img": "https://res.shiyin.net/FpoVBpLz2LH1ri_FqAhFAPE35cQG"
+                    },
+                ]
+            },
+
+        },
+        mutations: {
+            bannerList: (state, response) => {
+                let resultData = response.data;
+                state.bannerList.banner_data = resultData;
+
+            },
+
+        },
+        actions: {
+            //banner图片管理
+            getBanner: async function ({ commit }, params = {}) {
+                let response = await api.getBanner(params);
+                if (response.code == 200) {
+                    commit('bannerList', response)
+                }
+                return response;
+            },
+
+        }
+    }
+    export default home;
+     //getters里面
+    const home = {
+        homeBannerList: state => state.home.bannerList
+
+    }
+    export default home;
+    //index.js里面
+       import app from './getters/app'; //全局
+       import home from './getters/home'; //首页
+
+       const getters = {
+           ...app,
+           //首页
+           ...home,
+
+       }
+       export default getters;
+       //index,js里面
+       import Vue from 'vue'
+       import Vuex from 'vuex'
+       import getters from './getters';
+
+       import app from './module/app';
+       import home from './module/home';
+
+
+       Vue.use(Vuex)
+       export default new Vuex.Store({
+           modules: {
+               app,
+               home,
+           },
+           getters
+       })
+
+
+~~~
+
+8.一份mixin.js包含各个页面可能出现的功能，如点击按钮进入书籍详情页，加入收藏等。
+~~~
+
+export const mixin = {
+    created() { },
+    methods: {
+        //加入书架
+        async collectBookFn(book_id) {
+            let res = await this.$store.dispatch('postLibraryCollect', { book_id });
+            if (res.code == 200) {
+                messageToast({
+                    str: '加入成功~'
+                })
+               return new Promise((resolve)=>{
+                   resolve()
+               })
+            }
+        },
+    },
+    computed: {
+    }
+};
+~~~
+
+9.一份utils包含通用index.js,variable等文件（根据需求自己定义）
+~~~
+    - utils
+         - index.js
+         - variable.js
+~~~
+10.permission.js 这算是一份非常重要的文件，用于控制页面的跳转以及全局vuex状态的控制
+
+~~~
+import router from "./router";
+import {getToken} from "./utils/auth";
+import store from './store'
+let token = getToken();
+
+const whiteList = ["/login", "/404"];
+router.beforeEach((to, from, next) => {
+    if(token){
+        store.dispatch('setToken',token); //设置token
+    }
+    next();
+});
+router.afterEach(()=>{
+
+})
+
+~~~
+## 页面中使用。
+~~~
+<script>
+import { mapGetters } from "vuex";
+import { messageToast } from "../../utils";
+import { mixin } from "@/mixins/index";
+
+export default {
+	name: "home",
+	mixins: [mixin],
+	computed: {
+		...mapGetters({
+			banner: "bannerList",
+			token: "token"
+		})
+	},
+	data() {
+		return {
+
+		};
+	},
+
+	mounted() {
+        this.getBannerData()
+
+	},
+	components: {
+        async getBannerData() {
+            await this.$store.dispatch("getBanner", {});
+        },
+    },
+	methods: {}
+
+};
+</script>
+~~~
+
+## 后记，根据个人理解完成一次PC端项目架构，[项目地址(测试)](http://pc.yyuexs.com)
+
+
 
