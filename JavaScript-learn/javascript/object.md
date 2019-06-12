@@ -35,7 +35,7 @@ obj[name]
 * Object.keys(o)
 * Object.getOwnPropertyNames(o)
 
-### 2.1 for in 循环 访问一个对象及其$\{#ff0000}{原型链}$中所有可枚举属性(不推荐使用)
+### 2.1 for in 循环 访问一个对象及其$\color{#ff0000}{原型链}$中所有可枚举属性(不推荐使用)
 ~~~
 let obj = {
     name: '张三',
@@ -49,7 +49,7 @@ Array.property.test = 'd';
 //使用for in 循环会循环出d
 ~~~
 
-### 2.2Object.keys(o) 遍历该方法返回一个对象自身($\color{#ff0000}{$不包含原型中}$)的所有key的数组集合(推荐使用)。
+### 2.2Object.keys(o) 遍历该方法返回一个对象自身($\color{#ff0000}{不包含原型中}$)的所有key的数组集合(推荐使用)。
 ~~~
 let obj = {
     name: '张三',
