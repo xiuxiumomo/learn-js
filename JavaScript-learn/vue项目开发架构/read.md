@@ -19,6 +19,7 @@ vue全家桶+elementui,毕竟很多公共组件elmentui自带了，很方便也�
 * 8.一套mixin封装各个页面需要用到的方法。
 * 9.一份utils 里面包含validate.js以及index.js 包含验证等常用方法。
 * 10.一份permission.js，控制token的传递。以及路由页面切换(权限等问题)。
+* 11.实现微信、微博、QQ登录，以及支付宝、微信支付。
 
 ## 项目结构
 
@@ -470,6 +471,7 @@ export default {
 };
 </script>
 ~~~
+
 
 ## 后记，根据个人理解完成一次PC端项目架构，[项目地址(测试)](http://pc.yyuexs.com)
 
