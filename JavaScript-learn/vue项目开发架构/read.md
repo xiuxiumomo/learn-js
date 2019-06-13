@@ -15,7 +15,7 @@ vue全家桶+elementui,毕竟很多公共组件elmentui自带了，很方便也�
 * 4.一套axios请求库，封装好ajax请求包含(get,post,put,delete,patch)等。
 * 5.一份api文件里面保存所有接口请求后的接口。
 * 6.模块化router路由来控制不同页面。
-* 7.模块化$\color{#ff0000}{store}$来控制所有全局数据(包含axios请求的结果)。
+* 7.模块化*store*来控制所有全局数据(包含axios请求的结果)。
 * 8.一套mixin封装各个页面需要用到的方法。
 * 9.一份utils 里面包含validate.js以及index.js 包含验证等常用方法。
 * 10.一份permission.js，控制token的传递。以及路由页面切换(权限等问题)。
@@ -435,6 +435,131 @@ router.afterEach(()=>{
 })
 
 ~~~
+
+11.关于PC端微信微博QQ登录,以及微信支付宝支付。
+> 微信微博QQ登录是许多官方网站常见的登录方式，对于前端来讲无需做太多处理，只需要负责做以下几点。
+* 1.确定好回调地址，这个页面是必须的，常见的方式是新开一个固定大小的页面，中转页面中路由上会带一个code,只需获取code,请求登录接口即可。
+* 2.把微博微信QQappkey和secret保存在一份config文件中。
+* 3.确定每种方式的地址。
+* 4.支付宝支付，页面会跳转一个第三方，支付页面。
+* 5.微信支付，调用支付接以后会返回一个二维码字符串，利用qrcode插件生成二维码，用户扫码后完成支付。
+~~~
+//设置Config文件
+const config = {
+    qq: {
+        appkey:'xxx',
+        secrect: 'xxx'
+    },
+    wb: {
+        appkey:'xxx',
+        secrect: 'xxx'
+    },
+    wx: {
+        appkey:'xxx',
+        secrect: 'xxx'
+    }
+}
+//各种方式的跳转注意区分地址
+    wechatHandleClick() {
+        this.setCookieFn('loginType','wechat');
+        const appid = loginParams.wx.appKey;
+        const redirect_uri = encodeURIComponent(
+            window.location.origin + "/auth-redirect"
+        );
+        const url =
+            "https://open.weixin.qq.com/connect/qrconnect?appid=" +
+            appid +
+            "&redirect_uri=" +
+            redirect_uri +
+            "&response_type=code&scope=snsapi_login#wechat_redirect";
+        window.open(url);
+    },
+    tencentHandleClick() {
+        this.setCookieFn('loginType','qq');
+        const client_id = loginParams.qq.appKey
+        const redirect_uri = encodeURIComponent(window.location.origin + '/auth-redirect');
+        const url = 'https://graph.qq.com/oauth2.0/show?which=Login&state=state&scope=get_user_info&display=pc&response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_uri
+        window.open(url);
+    },
+    weiboHandleClick() {
+        this.setCookieFn('loginType','weibo');
+        const appKey = loginParams.weibo.appKey;
+        const redirect_uri = encodeURIComponent(window.location.origin + "/auth-redirect");
+        const url =
+            "https://api.weibo.com/oauth2/authorize?client_id=" +
+            appKey +
+            "&response_type=code&redirect_uri=" +
+            redirect_uri;
+        window.open(url);
+    }
+    //中转页面举例微博,其他同理。
+    async getWiBoFn() {
+        this.showLoading();
+        let code = this.$route.query.code;
+        let redirect_uri = window.location.origin + "/auth-redirect";
+        let res = await this.$store.dispatch("getRegisterWeiBo", {
+            redirect_uri,
+            code
+        });
+        if (res.code == 200 && res.data) {
+            this.hideLoading();
+            messageToast({
+                str: "授权成功~"
+            });
+            setTimeout(() => {
+                this.$router.push({
+                    path: "/home?from=auth-redirect"
+                });
+            }, 1000);
+        } else {
+            this.hideLoading();
+            messageToast({
+                str: "授权失败,请重试~"
+            });
+            setTimeout(() => {
+                this.$router.replace({
+                    path: "/"
+                });
+            }, 1000);
+        }
+        this.removeCookieFn("loginType");
+        return;
+    },
+    //微信支付
+    function wxPay(){
+        let params = {
+            amount: 0.01, //that.rmb
+            trade_type: 'wx',
+            body: "a",
+            token 
+	    };
+        let res = await this.$store.dispatch('postUserPay',params);
+        if(res&&res.code_url){
+            let code_str = res.code_url;
+            this.wx.codeStr = code_str; //二维码字符串。
+            this.wx.show = true; //打开弹窗
+        }
+    }
+    function aLiPay(){
+        let params = {
+            amount: 0.01, //that.rmb
+            trade_type: 'ali',
+            body: "a",
+            token 
+	    };
+        let url = `${baseAPI}/api/v1/order?amount=${
+					params.amount
+				}&trade_type=${params.trade_type}&body=${
+					params.body
+				}&token=${token}`;
+		window.open(url); //直接跳转
+    }
+   
+
+~~~
+
+
+
 ## 页面中使用。
 ~~~
 <script>
@@ -473,7 +598,7 @@ export default {
 ~~~
 
 
-## 后记，根据个人理解完成一次PC端项目架构，[项目地址(测试)](http://pc.yyuexs.com)
+## 后记，根据个人理解完成一次PC端项目架构，[项目地址(测试)](http://pc.yyuexs.com)，如需体验登录和支付功能，可以来注册和消费哦。！！！
 
 
 
