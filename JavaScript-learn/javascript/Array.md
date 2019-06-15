@@ -71,8 +71,77 @@ arr.reserve() //[5,4,3,1]
 ~~~
 let arr = [1,2,3,4];
 arr.slice(1,3) //[2,3] 
+
+arr.splice(1,3) // [2,3]
 ~~~
 
+### 3.6indexOf()
+- indexOf(ele,[,start]) 查找数组中是否含有某个元素，如果没有则返回-1
+
+## 4.数组迭代方法
+- forEach() 遍历循环
+- every() 数学中的与命题,必须全部为真返回真。
+- some() 数学中的或命题,存在某个为真返回真。
+- filter() 过滤数组的每一项，返回符合条件的集合(漏斗)
+- map()  返回一个由回调函数的返回值组成的新数组。
+- reduce() 从左到右为每个数组元素执行一次回调函数，并把上次回调函数的返回值放在一个暂存器中传给下次回调函数，并返回最后一次回调函数的返回值。
+
+~~~
+let arr = [1,2,3];
+let is_true = arr.every((item)=>{
+    return item>0;
+})
+console.log(is_true) //true
+let arr_2 = arr.filter((item)=>{
+    return item>=2;
+})
+// [2,3]
+let map_arr = arr.map((item)=>{
+    return item*2;
+})
+// map_arr [2,4,6]
+注意以上行为均不改变原来的数组
+~~~
+## 5.ES6新增数组方法
+- keys() 返回下标集合
+- values() 返回元素值的集合
+- entries() 返回键值对集合
+- find() 找到第一个满足测试函数元素的那个值，找不到返回undefind
+- findIndex() 找打第一个满足测试函数的元素的索引，找不到返回-1；
+
+~~~
+//重点讲一下find findIndex
+let arr = [1,2,3];
+let item = arr.find((item)={
+    return item==1
+})
+let item_index = arr.findIndex((item)={
+    return item==1
+})
+// item 1 item_index 0
+let arr = [
+    {
+        id: 1,
+        name: 'lee'
+    },
+    {
+        id: 2,
+        name: 'jack
+    }
+]
+let item = arr.find((item)=>{
+    return item.id==1;
+})
+//item {id:1,name:'lee'}
+
+
+~~~
+
+## 数组的扩展ES6
+- (...)运算
+- Array.from()
+- Array.of()
+- includes()
 
 
 
