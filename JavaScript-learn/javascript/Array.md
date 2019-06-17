@@ -60,6 +60,8 @@ console.log(len,arr) //4, [1,2,3,4]
 - shift(): 删除并返回数组的第一个元素，改变元素组。
 - unshift(): 从数组的头部插入一个元素并返回数组的长度。
 
+![img](https://github.com/xiuxiumomo/learn-js/blob/master/JavaScript-learn/images/arr_1.png)
+
 ### 3.4 reserve() 颠倒数组的顺序
 ~~~
 let arr = [1,3,4,5];
