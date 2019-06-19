@@ -60,7 +60,7 @@ console.log(len,arr) //4, [1,2,3,4]
 - shift(): 删除并返回数组的第一个元素，改变元素组。
 - unshift(): 从数组的头部插入一个元素并返回数组的长度。
 
-![img](https://github.com/xiuxiumomo/learn-js/blob/master/JavaScript-learn/images/arr_1.png)
+![img](../images/arr_1.png)
 
 ### 3.4 reserve() 颠倒数组的顺序
 ~~~
@@ -140,10 +140,23 @@ let item = arr.find((item)=>{
 ~~~
 
 ## 数组的扩展ES6
-- (...)运算
-- Array.from()
-- Array.of()
-- includes()
+- (...)运算 浅拷贝对象
+- Array.from() 将类数组转变成真正的数组
+- Array.of() 将一组数值转变成数组
+- includes() 返回Boolean值，判断数组中是否包含元素
+
+~~~
+let arr = [1,2,3];
+let arr2 = [...arr];
+let a = {
+    '0': 'lee',
+    '1': 'jack',
+    length: 2
+}
+let arr = Array.from(a) //变为数组
+Array.of(1,2,3) // [1,2,3]
+[1,23,4].includes(1) //
+~~~
 
 
 
