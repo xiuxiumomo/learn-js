@@ -31,7 +31,8 @@ let offSetHeight = document.getElementById('box-1').offsetTop; //相对于网页
 
 ![](https://user-gold-cdn.xitu.io/2019/5/31/16b0d40268b6d476?w=503&h=647&f=png&s=4415)
 此时b的偏移量就是a的offsetHeight.
-> 页面中关于window的操作1.判断滚动条是否到达底部
+
+### 1.页面中关于window的操作1.判断滚动条是否到达底部
 ~~~
 window.addEventListener('scroll',function(){
     let scrollHeight = document.documentElement.scrollHeight; //滚动页面高度
@@ -44,7 +45,7 @@ window.addEventListener('scroll',function(){
     }
 })
 ~~~
-> 判断页面是否滚动到某个元素了
+### 2.判断页面是否滚动到某个元素了
 ~~~
 function isToAim(){
     let offsetTop = document.getElementById('box-3').getBoundingClientRect().top; //代替offsetTop 必须放在scroll外面，否则没滚动一次会重新计算
@@ -69,7 +70,7 @@ function isToAim(){
 
 ![](https://user-gold-cdn.xitu.io/2019/5/31/16b0d6af32f4bee6?w=667&h=438&f=jpeg&s=23133)
 
-> 关于document.documentElement与document.body区别
+### 3.关于document.documentElement与document.body区别
 * document.documentElement获取的是<html>标签而document.body获取页面的body标签
 * chrome某些版本只能通过document.body获取scrollTop.IE用document.documentElement获取
 ~~~

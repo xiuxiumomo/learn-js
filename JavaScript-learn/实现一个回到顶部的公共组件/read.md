@@ -1,16 +1,16 @@
 ## Vue中封装一个公共组件回到顶部
 > 前言:在vue中经常用到回到顶部这个功能，总不可能每次都重新写一个吧？所以需要痛下决心封一个就完事了。
 
-设计思路
+### 1.设计思路
 * 确定回到顶部出现的位置,一般滚动页面滚动条拉到最底部就需要出现了。
 * 平滑的让滚动条回到顶部。
 
-实现:
+### 2.实现:
 * 确定页面时是否滚动到底部了具体可以参考我的另一篇[文章](http://https://github.com/xiuxiumomo/learn-js/blob/master/JavaScript-learn/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%AE%BD%E5%BA%A6%E9%97%AE%E9%A2%98/read.md)
 * 利用requestAnimationFrame(页面重绘)实现页面平滑的回到顶部
 
-关于window.requestAnimationFrame: 参数window.requestAnimationFrame(callback).
-window.cancelAnimationFrame()取消
+### 3.关于window.requestAnimationFrame:
+* 介绍 参数window.requestAnimationFrame(callback).和window.cancelAnimationFrame()取消
 ~~~
 <template>
     <div id="goTop">
