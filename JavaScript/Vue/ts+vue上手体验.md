@@ -48,12 +48,15 @@
 ~~~
 ### 1.关于组件的使用
 组件使用了包装器vue-property-decorator
+~~~
 import { Component, Vue } from "vue-property-decorator";
 @Component({
     components: {
 
     }
 })
+~~~
+
 ### 2.关于js页面重新调整改用react的面向对象的整体方法
 ~~~
 export default clss Home extends Vue{
