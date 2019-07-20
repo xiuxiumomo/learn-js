@@ -6,9 +6,13 @@
 
 ### 1.1实现方法
 最后前面的方法效果不佳(广告插入的位置以以及分页数的计算)放弃了。实现效果如图
+
+
 ![](https://user-gold-cdn.xitu.io/2019/6/3/16b1c870779855c5?w=369&h=598&f=jpeg&s=59434)
 
 ![](https://user-gold-cdn.xitu.io/2019/6/3/16b1c86765030881?w=369&h=597&f=jpeg&s=56918)
+
+
 ![](https://user-gold-cdn.xitu.io/2019/6/5/16b26c2afabff986?w=369&h=647&f=gif&s=1142214)
 
 ### 1.2需求：
