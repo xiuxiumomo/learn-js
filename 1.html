@@ -52,7 +52,20 @@
                 <li></li>
             </ul>
         </div>
-      
+        <script>
+            function Fun() {
+                let arr = [];
+                for (var i = 0; i < 10; i++) {
+                    arr[i] = function () {
+                        return i;
+                    }
+                }
+                return arr;
+            }
+            let Fn = Fun();
+            console.log(Fn[0]()) //10
+            console.log(Fn[1]()) //10
+        </script>
 
     </body>
 </html>
