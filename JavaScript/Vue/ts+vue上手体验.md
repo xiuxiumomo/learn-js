@@ -1,5 +1,5 @@
 ## vue+ts上手体验
-> 前言vue学习到了某个程度之后，总想搞个大新闻...试试ts,首先用vuecli3脚手架一把梭。构建基本框架就不多讲了。搭建后项目的配置基本是
+> 前言vue学习到了某个程度之后，总想搞个大新闻...试试ts,[项目地址](https://github.com/xiuxiumomo/typescript-learning/tree/vue-cli3)是首先用vuecli3脚手架一把梭。构建基本框架就不多讲了。搭建后项目的配置基本是
 ~~~
 - public
 - src
@@ -251,6 +251,7 @@ VUE_APP_BASE = 'test'
 当build打包时
 "build-test": "vue-cli-service build --mode test",
 ~~~
+
 
 
 
