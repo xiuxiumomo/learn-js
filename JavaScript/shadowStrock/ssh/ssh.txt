@@ -1,9 +1,10 @@
-1.新建ssh连接-账号密码输入
+1.锟铰斤拷ssh锟斤拷锟斤拷-锟剿猴拷锟斤拷锟斤拷锟斤拷锟斤拷
 2.yum install -y lrzsz
-3.选择shadowsocks.sh
+2.5 rz
+3.选锟斤拷shadowsocks.sh
 4.chmod +x shadowsocks.sh
 5. ./shadowsocks.sh
-6. 写入连接密码lee123
-7.端口号443
+6. 写锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷lee123
+7.锟剿口猴拷443
 8.选7
-9.等待....
+9.锟饺达拷....
