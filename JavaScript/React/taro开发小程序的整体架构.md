@@ -147,3 +147,19 @@ class Templete extends Component {
 export default Templete
 
 ~~~
+
+### 4.bug及问题
+从A页面跳转到B页面，B页面有动态的Taro.setNavBarTitle({title: 'xx'}),且xx是接口请求出来的数据时，迅速返回A页面，A页面的标题被替换成了Xx
+解决办法，在B页面中
+~~~
+/**
+ * 判断当前页面是否为某个页面
+ */
+export function isCurrPage(_pages) {
+  let pages = getCurrentPages()
+  let currentPage = pages[pages.length - 1]
+  let url = currentPage.route
+  return url.indexOf(_pages) > -1 
+}
+~~~
+当页面是B时，再设置标题否则就不设置
