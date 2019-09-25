@@ -136,6 +136,32 @@ let b= {b:2}
 //Object.assign(a,b)
 let c = {...a,...b};
 ~~~
+## 5.可枚举与不可枚举的注意事项
+- for in 遍历所有可枚举属性（包含原型链中 不推荐使用）
+- Object.keys() 返回一个对象本身可枚举属性的数组集合（不包含原型链 推荐使用）
+- JSON.stringify 返回一个对象本身可枚举属性的对象字符串
+
+~~~
+function Person() {
+        this.name ='jack'
+    }
+    Person.prototype = {
+        constructor: Person,
+        job: 'student'
+    }
+
+    var p = new Person()
+    //创建一个不可枚举的属性
+    Object.defineProperty(p,'sex',{
+        value: 'man',
+        enumerable: false
+    })
+    for(let key in p) {
+        console.log(key+'='+p[key])
+    }
+    console.log(Object.keys(p))
+    console.log(JSON.stringify(p))
+~~~
 
 
 
