@@ -1,3 +1,4 @@
+~~~
 # aaa  一级标题
 ## aaa 二级标题
 * aaa 列表项一
@@ -16,3 +17,24 @@ aaa          代码块
 ~~~
 
 $\color{#000}{aaa}$ 给文字添加颜色
+~~~
+
+~~~
+git 指令
+
+一.本地文件合并到已有的分支
+
+1.git init
+2.git add .
+3.git commit -m 创建
+4. git remote add origin http://xxxx
+5.git pull --rebase origin master
+6.git checkout -b A
+6.git push
+二.删除分支
+1.git push origin -d BranchName（仓库）
+2.git branch -D branchName (本地)
+~~~
+
+
+
