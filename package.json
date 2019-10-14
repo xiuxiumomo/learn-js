@@ -1,0 +1,29 @@
+{
+    "name": "learn-js",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "cheerio": "^1.0.0-rc.3",
+        "koa": "^2.8.2",
+        "koa-router": "^7.4.0",
+        "superagent": "^5.1.0",
+        "superagent-charset": "^1.2.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "node index"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xiuxiumomo/learn-js.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/xiuxiumomo/learn-js/issues"
+    },
+    "homepage": "https://github.com/xiuxiumomo/learn-js#readme"
+}
