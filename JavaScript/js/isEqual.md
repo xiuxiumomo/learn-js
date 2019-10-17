@@ -48,5 +48,5 @@ Object.is(NaN, 0/0);         // true
 
 ~~~
 
-## 后记文章部分参考[王平安](http://js.pingan8787.com/)文章。
+注明：该文章是在原文[前端自习课](https://mp.weixin.qq.com/s/-HPtViPA926BwNp599555w)修改而得，感谢原作者！
 

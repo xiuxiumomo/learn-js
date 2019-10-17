@@ -165,5 +165,5 @@ let arr = [1,2,2,3,4,5];
 let arr_2 = Array.from(new Set(arr));
 ~~~
 
-
+注明：该文章是在原文[前端自习课](https://mp.weixin.qq.com/s/-HPtViPA926BwNp599555w)修改而得，感谢原作者！
 

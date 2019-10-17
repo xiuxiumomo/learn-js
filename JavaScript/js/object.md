@@ -163,5 +163,5 @@ function Person() {
     console.log(JSON.stringify(p))
 ~~~
 
-
+注明：该文章是在原文[前端自习课](https://mp.weixin.qq.com/s/-HPtViPA926BwNp599555w)修改而得，感谢原作者！
 
