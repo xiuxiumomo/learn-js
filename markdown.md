@@ -34,6 +34,11 @@ git 指令
 二.删除分支
 1.git push origin -d BranchName（仓库）
 2.git branch -D branchName (本地)
+
+三.版本回退
+1. git log 查看版本
+2. git reset --hard 8291ff(上一次commit的版本号)
+3. git push -force
 ~~~
 
 
