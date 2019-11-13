@@ -4,67 +4,81 @@
         <meta charset="UTF-8">
         <title>Title</title>
     </head>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        ul li {
-            list-style: none;
-        }
-        #box {
-            width: 24px;
-            height: 24px;
-            margin-top: 100px;
-            margin-left: 100px;
-            transition: all linear 0.3s;
-
-        }
-        #box:hover {
-            transform: rotate(90deg);
-        }
-        #box:hover li:nth-child(1) {
-            transform: rotate(90deg);
-        }
-        #box ul {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        #box li {
-            width: 10px;
-            height: 10px;
-            border: 1px solid #ccc;
-            display: block;
-            transition: all linear 0.2s;
-            transition-delay: 0.3s;
-        }
-    </style>
+    <style></style>
     <body>
         <div id="box">
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>
+                    <a href="#/page1">page1</a>
+                </li>
+                <li>
+                    <a href="#/page2">page2</a>
+                </li>
+                <li>
+                    <a href="#/page3">page3</a>
+                </li>
+                <li>
+                    <a href="#/page4">page4</a>
+                </li>
             </ul>
+            <div id="container"></div>
         </div>
         <script>
-            function Fun() {
-                let arr = [];
-                for (var i = 0; i < 10; i++) {
-                    arr[i] = function () {
-                        return i;
-                    }
+            class HashRouter {
+                constructor() {
+                    this.routers = {}
+                    window.addEventListener('hashchange', this.load.bind(this), false)
                 }
-                return arr;
+
+                //注册视图
+                register(hashName, callBack = () => {}) {
+                    this.routers[hashName] = callBack
+                }
+                //注册首页
+                registerIndex(callBack = () => {}) {
+                    this.routers['index'] = callBack;
+                }
+                //404
+                registerNotFound(callBack = () => {}) {
+                    this.routers['404'] = callBack
+                }
+                //异常
+                registerError(callBack = () => {}) {
+                    this.routers['error'] = callBack;
+                }
+                //load
+                load() {
+                    let hash = location
+                            .hash
+                            .slice(1),
+                        handler = null;
+                    if (hash) {
+                        handler = this.routers[hash]
+                    } else if(!this.routers.hasOwnProperty(hash)){
+                        handler = this.$routers['404'] || function() {}
+                    }else{
+                        handler = this.routers['index']
+                    }
+                    try{
+                        handler.call(this)
+                    } catch(e) {
+                        (this.routers['error'] || function() {}).call(this,e)
+                    }
+                   
+                }
             }
-            let Fn = Fun();
-            console.log(Fn[0]()) //10
-            console.log(Fn[1]()) //10
+
+            let router = new HashRouter();
+            let container = document.getElementById('container');
+            router.registerIndex(() => container.innerHTML = '首页')
+            router.register('/page1', () => container.innerHTML = 'page1')
+            router.register('/page2', () => container.innerHTML = 'page2')
+            router.register('/page3', () => container.innerHTML = 'page3')
+            router.register('/page4', () => container.innerHTML = 'page4')
+            router.load()
+            router.registerNotFound(() => container.innerHTML = '未发现页面')
+            router.registerError((e) => container.innerHTML = `页面异常${e.message}`)
+          
         </script>
 
     </body>
