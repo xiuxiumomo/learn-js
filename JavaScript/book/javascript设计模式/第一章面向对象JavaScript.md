@@ -220,8 +220,9 @@ console.log ( a.**proto**=== Object.prototype ); // 输出：true
 
 ```
 
-#### 1.4.6原型继承的未来
-~~~~
+#### 1.4.6 原型继承的未来
+
+```
 class Animal {
     constructor(name) {
         this.name = name;
@@ -241,4 +242,4 @@ class Dog extends Animal {
 }
 var dog = new Dog("Scamp");
 console.log(dog.getName() + ' says ' + dog.speak());
-~~~~
+```
