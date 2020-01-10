@@ -1,0 +1,195 @@
+@import './variable';
+
+/*公共样式--开始*/
+html,
+body,
+div,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dt,
+dd,
+ol,
+form,
+input,
+textarea,
+th,
+td,
+select {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+
+
+body {
+    font-family: Microsoft Yahei, Times New Roman, Arial;
+    font-size: 14px;
+    color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+input,
+textarea {
+    outline: none;
+    border: none;
+    font-family: 'Microsoft YaHei';
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+}
+
+
+button {
+    //消除button的默认样式
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent; //自定义边框
+    outline: none; //消除默认点击蓝色边框效果
+}
+
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.tl {
+    text-align: left;
+}
+
+.tc {
+    text-align: center
+}
+
+.tr {
+    text-align: right;
+}
+
+.ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inline {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+/*新加*/
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.normal-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ellipse {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ellipse-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.ellipse-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+
+.in-block {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+.wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
