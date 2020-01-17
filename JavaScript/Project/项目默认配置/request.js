@@ -7,7 +7,7 @@ var filterParams = function (params = {}) {
     }
     for (let k in params) {
         if (params[k] === "" || params[k] === undefined || params[k] === null) {
-            delete params.data[k];
+            delete params[k];
         }
     }
     return params;
@@ -65,7 +65,7 @@ service.interceptors.response.use(
         return res;
     },
     error => {
-        return Promise.resolve(error.response.data);
+        return Promise.resolve(error);
     }
 );
 

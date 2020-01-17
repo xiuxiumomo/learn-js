@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "./Typescript/build/",
+        "allowJs": true,
+        "target": "es5"
+    },
+    "include": [
+        "./Typescript/**/*"
+    ]
+}

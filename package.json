@@ -12,8 +12,9 @@
         "superagent-charset": "^1.2.0"
     },
     "scripts": {
+        "tsc": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "node index"
+        "dev": "node Typescript/build/1.js"
     },
     "repository": {
         "type": "git",

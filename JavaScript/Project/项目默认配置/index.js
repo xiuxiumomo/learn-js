@@ -133,7 +133,26 @@ var isPhoneNum = function(str){
     var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
     return myreg.test(str)
 }
-
+/**
+ * 缓存代理模式 id 索引
+ * callBack 回调函数
+ */
+let proxySync = (function() {
+    let cache = [], 
+        timer; 
+    return function(id,callBack) {
+        cache.push(id);
+        if (timer) {
+            return;
+        }
+        timer = setTimeout(function() {
+            callBack()
+            clearTimeout(timer);
+            timer = null;
+            cache.length = 0; 
+        }, 500);
+    };
+})();
 export {
     isType,
     throttle,
@@ -144,5 +163,6 @@ export {
     randomNum,
     randomColor,
     timeToDetail,
-    isPhoneNum
+    isPhoneNum,
+    proxySync
 }
