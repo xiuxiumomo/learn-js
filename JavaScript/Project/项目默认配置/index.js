@@ -1,11 +1,11 @@
 /**
  * 
  * @param {*} type 类型可以是String Number Boolean等基本类型
- * 用法 var isString = isType('String');
+ * 用法 let isString = isType('String');
  *      isString('123')
  * 
  */
-var isType = function (type) {
+let isType = function (type) {
     return function (obj) {
         return Object.prototype.toString.call(obj) === '[object ' + type + ']';
     }
@@ -19,15 +19,15 @@ var isType = function (type) {
         }, 1000))
  */
 
-var throttle = function (callBack, time) {
-    var prev = Date.now(),
+let throttle = function (callBack, time) {
+    let prev = Date.now(),
         first = true;
     return function () {
         if (first) {
             callBack.apply(this, arguments);
             return first = false;
         }
-        var now = Date.now();
+        let now = Date.now();
         if (now - prev >= time) {
             callBack.apply(this, arguments);
             prev = Date.now();
@@ -39,8 +39,8 @@ var throttle = function (callBack, time) {
  * @param {*} fn  回调函数
  * @param {*} wait  一段时间
  */
-var debounce = function (fn, wait) {
-    var time = null;
+let debounce = function (fn, wait) {
+    let time = null;
     return function () {
         if (time !== null) {
             clearTimeout(time);
@@ -54,7 +54,7 @@ var debounce = function (fn, wait) {
  * @param {*} array数组
  * 注意去重只能去掉数字字符串组成的数组，对象数组不起作用 
  */
-var ArrayOnly = function (array) {
+let ArrayOnly = function (array) {
     return [...new Set(array)];
 }
 
@@ -65,11 +65,11 @@ var ArrayOnly = function (array) {
     data: [1, 5, 2, 7],
     limit: 'min'}))
  */
-var findLimit = function ({
+let findLimit = function ({
     data = [],
     limit = 'max'
 } = {}) {
-    var res = [];
+    let res = [];
     if (limit === 'max') {
         res = Math.max.apply(null, data)
     } else {
@@ -84,8 +84,8 @@ var findLimit = function ({
  * @param {*} className  类名
  */
 
-var hasClass = function (obj, className) {
-    var arr = obj.className.split(/\s+/);
+let hasClass = function (obj, className) {
+    let arr = obj.className.split(/\s+/);
     return arr.includes(className);
 }
 /**
@@ -93,14 +93,14 @@ var hasClass = function (obj, className) {
  * @param {*} min  最小值
  * @param {*} max  最大值
  */
-var randomNum = function (min, max) {
+let randomNum = function (min, max) {
     return Math.round(min + Math.random() * (max - min))
 }
 /**
  * 随机颜色
  */
-var randomColor = function () {
-    var color = {
+let randomColor = function () {
+    let color = {
         r: randomNum(0, 255),
         g: randomNum(0, 255),
         b: randomNum(0, 255),
@@ -112,47 +112,63 @@ var randomColor = function () {
  * 时间戳转化到具体的年月日时分秒
  * @param {*} timeNum 时间戳
  */
-var timeToDetail = function (timeNum) {
+let timeToDetail = function (timeNum) {
     function getZero(n) {
         return n < 10 ? ('0' + n) : n;
     }
-    var myTime = new Date(timeNum);
-    var year = myTime.getFullYear();
-    var month = myTime.getMonth() + 1;
-    var day = myTime.getDate();
-    var hour = myTime.getHours();
-    var min = myTime.getMinutes();
-    var sec = myTime.getSeconds();
-    var str = year + '/' + getZero(month) + '/' + getZero(day) + ' ' + getZero(hour) + ':' + getZero(min) + ':' + getZero(sec);
+    let myTime = new Date(timeNum);
+    let year = myTime.getFullYear();
+    let month = myTime.getMonth() + 1;
+    let day = myTime.getDate();
+    let hour = myTime.getHours();
+    let min = myTime.getMinutes();
+    let sec = myTime.getSeconds();
+    let str = year + '/' + getZero(month) + '/' + getZero(day) + ' ' + getZero(hour) + ':' + getZero(min) + ':' + getZero(sec);
     return str;
 }
 /**
  * 验证是否为手机号
  */
-var isPhoneNum = function(str){
-    var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+let isPhoneNum = function (str) {
+    let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     return myreg.test(str)
 }
 /**
  * 缓存代理模式 id 索引
  * callBack 回调函数
  */
-let proxySync = (function() {
-    let cache = [], 
-        timer; 
-    return function(id,callBack) {
+let proxySync = (function () {
+    let cache = [],
+        timer;
+    return function (id, callBack) {
         cache.push(id);
         if (timer) {
             return;
         }
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             callBack()
             clearTimeout(timer);
             timer = null;
-            cache.length = 0; 
+            cache.length = 0;
         }, 500);
     };
 })();
+/**
+ * 系统时间自己刷新
+ * 
+ * 
+ */
+let requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) { //如果浏览器不支持 手动刷新
+            window.setTimeout(callback, 1000 / 60);
+        };
+
+})()
 export {
     isType,
     throttle,
@@ -164,5 +180,6 @@ export {
     randomColor,
     timeToDetail,
     isPhoneNum,
-    proxySync
+    proxySync,
+    requestAnimFrame
 }
