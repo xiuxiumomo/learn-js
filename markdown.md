@@ -122,4 +122,4 @@ location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
 6.按住 i 进入编辑
 7.按住 esc 退出编辑
 8.按住:wq 退出 
-9.重启 ngx server ngxin reload
+9.重启 service nginx reload
