@@ -123,3 +123,10 @@ location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
 7.按住 esc 退出编辑
 8.按住:wq 退出 
 9.重启 service nginx reload
+
+
+## git忽略某个文件夹下的文件
+~~~
+src/utils/index
+//前提是清理缓存：git rm -r --cached .
+~~~
