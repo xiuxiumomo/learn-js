@@ -20,7 +20,19 @@ CREATE TABLE news (
 7.插入表 INSERT INTO news (title, content) VALUES ('表啊啊', '222');
 8.删除表 delete from news WHERE id = 10;
 9.更新表 update news set title='表啊啊啊222' WHERE id=9;
-
-
 **/
+~~~
+## where查询
+~~~
+常用的比较有
+=  != 或者<> >  < >= <=
+select * from news where id>=1;
+~~~
+
+## order by查询
+~~~
+1.asc 升序
+2.desc 降序
+order by <字段名> asc|desc
+select * from news order by id desc;
 ~~~
