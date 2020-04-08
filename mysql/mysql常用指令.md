@@ -36,3 +36,24 @@ select * from news where id>=1;
 order by <字段名> asc|desc
 select * from news order by id desc;
 ~~~
+## like 语句模糊查询
+~~~
+1.% 代表前面为任意字符且多个只要以d1结尾就可以
+2._ 代表单个任意字符 as_d1
+select * from news where title LIKE '%d1';
+select * from news where title LIKE 'as_d1';
+~~~
+
+## as 别名 <字段名> as 别名
+~~~
+select title as 标题 from news;
+~~~
+
+## union 联合两张表 选出来的不带重复数据
+~~~
+select id from news union  select id from users ORDER BY id;
+~~~
+## distinct 去重搜索
+~~~
+select distinct id from users;
+~~~
