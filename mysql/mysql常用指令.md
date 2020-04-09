@@ -57,3 +57,27 @@ select id from news union  select id from users ORDER BY id;
 ~~~
 select distinct id from users;
 ~~~
+
+## group by 分组搜索
+~~~
+select id,count(*) from users GROUP BY id; 
+
+~~~
+## null 值处理
+~~~
+//选出age = null的
+select * from users where age<=>null;
+select * from users where age IS NULL;
+//用=选不出age=null的
+select * from users where age=null;
+~~~
+
+## 正则表达式
+~~~
+1. ^
+2. $
+3. .
+4. [abc]
+5. [^abc]
+6. p1|p2|p3
+~~~
