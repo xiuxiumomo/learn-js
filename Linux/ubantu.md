@@ -119,3 +119,8 @@ chmod 777 filename
 su root //切换管理员
 sudo //临时获取所有权限
 ~~~
+
+## 13.关闭防火墙
+~~~
+ufw disable
+~~~

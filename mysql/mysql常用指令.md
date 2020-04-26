@@ -294,7 +294,16 @@ select 分组函数,列(要求出现在group by后面) from 表 【where 筛选�
 
 
 select MAX(age),id from users GROUP BY id
+
+//带条件
+
+select avg(age),id from users where name like '%b%' group by id;
+
+//用分组后的条件查询 查询分类类型大于2的类型
+select count(*),id from users group by id having count(*)>2;
 ```
+
+不同条件不同的时间点去可以选择不一样的东西，你们觉得
 
 
 
