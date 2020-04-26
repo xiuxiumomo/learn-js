@@ -245,3 +245,56 @@ end as 新工资
 from emplory; 
 ```
 
+# 分组函数
+> 主要用来统计
+- sum
+- avg
+- min
+- count
+
+## 1.使用
+
+```
+select SUM(age),avg(age) from users;
+select avg(age) from users;
+select SUM(age) from users;
+select min(age) from users;
+select count(age) from users;
+```
+
+## 2.参数类型
+```
+sum avg 一般处理数值型
+max min count 处理任何类型
+```
+## 3.是否忽略null值
+```
+默认忽略null值
+```
+
+## 4.和distinct 去重搭配
+
+```
+select sum( DISTINCT age) from users;
+```
+
+## 5.count其他用法
+```
+select count(*) from user; //用于统计行数
+```
+
+## 6.和分组函数一同查询字段有限制
+```
+要求是group by函数
+
+```
+# 分组查询 group by
+```
+select 分组函数,列(要求出现在group by后面) from 表 【where 筛选条件】 group by 分组列表 【order by 句子】
+
+
+select MAX(age),id from users GROUP BY id
+```
+
+
+
