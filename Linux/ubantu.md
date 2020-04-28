@@ -124,3 +124,22 @@ sudo //临时获取所有权限
 ~~~
 ufw disable
 ~~~
+
+
+## 14.nvm的安装
+~~~
+nvm -v // 查看nvm版本
+nvm install 8.12.0 // 下载指定版本 nvm install latest安装最新版本
+nvm use 8.12.0 // 使用指定版本
+nvm ls // 查看已经安装的nodejs版本
+node -v // 查看nodejs版本
+~~~
+
+## 15.pm2常用指令
+~~~
+pm2 list 查看所有指令
+pm2 start file.name //启动文件
+pm2 start file.name --name="koa_api"  --watch //设置服务名称
+pm2 stop 0 //停止id 0的服务项目
+pm2 delete 0 //删除 0 的服务项目
+~~~
