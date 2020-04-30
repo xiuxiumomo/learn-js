@@ -339,3 +339,12 @@ npm install cross-env
 ```
 
 ## 7.pm2 部署上线
+ - 安装pm2 
+ - 配置 pm2打包命令
+
+ ```
+ npm install -g pm2
+ //在koa路径下 npm run pm2
+
+"pm2": "cross-env NODE_ENV=production pm2 start bin/www --name='koa_api' --watch",
+ ```
