@@ -288,7 +288,7 @@ select count(*) from user; //用于统计行数
 要求是group by函数
 
 ```
-# 分组查询 group by
+### 6.1分组查询 group by
 ```
 select 分组函数,列(要求出现在group by后面) from 表 【where 筛选条件】 group by 分组列表 【order by 句子】
 
@@ -302,8 +302,27 @@ select avg(age),id from users where name like '%b%' group by id;
 //用分组后的条件查询 查询分类类型大于2的类型
 select count(*),id from users group by id having count(*)>2;
 ```
-
 不同条件不同的时间点去可以选择不一样的东西，你们觉得
+### 6.2按照函数分组 
+```
+//按照title长度分组并统计每组的个数
+
+select count(*),LENGTH(title) as title_len FROM article GROUP BY LENGTH(title) HAVING count(*)>1;
+
+```
+### 6.3按照多个字段查询
+```
+//按照作者和分类查询统计
+select count(*),author,category FROM article GROUP  BY author,category;
+```
+
+### 6.4添加排序
+```
+//6.3基础上按照降序排序
+select count(*),author,category FROM article GROUP  BY author,category ORDER BY count(*) DESC;
+```
+
+## 7.笛卡尔积连接查询
 
 
 
