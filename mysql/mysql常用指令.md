@@ -323,6 +323,13 @@ select count(*),author,category FROM article GROUP  BY author,category ORDER BY 
 ```
 
 ## 7.笛卡尔积连接查询
-
+```
+//查询女的匹配男朋友
+select NAME,boyName FROM beauty,boys;
+ //3 * 4
+ - - - -
+ - - - -
+ - - - -
+```
 
 
