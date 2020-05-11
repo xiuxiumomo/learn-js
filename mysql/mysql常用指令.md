@@ -326,10 +326,35 @@ select count(*),author,category FROM article GROUP  BY author,category ORDER BY 
 ```
 //查询女的匹配男朋友
 select NAME,boyName FROM beauty,boys;
+//正确
+select NAME,boyName FROM beauty,boys WHERE beauty.boyfriend_id = boys.id;
  //3 * 4
  - - - -
  - - - -
  - - - -
+```
+
+## 8.连接查询
+~~~
+内连接
+  等值连接
+  非等值连接
+  自连接
+
+外连接
+  左外连接
+  右外连接
+  全外连接
+
+
+交叉连接
+  
+~~~
+### 8.1内连接
+
+```
+查询女神男神名字
+select NAME,boyName FROM beauty,boys WHERE beauty.boyfriend_id = boys.id;
 ```
 
 
