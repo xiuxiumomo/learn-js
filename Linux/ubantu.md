@@ -69,21 +69,7 @@ pm2 list           //查看所有node服务
  }
 ```
 
-## 6.部署 egg 项目
 
-```
-## 在egg项目中加入文件pm2Server.js
-{
-    'use strict';
-    const egg = require('egg');
-    const workers = Number(process.argv[2] || require('os').cpus().length);
-    egg.startCluster({
-    workers,
-    baseDir: __dirname,
-    });
-}
-pm2 pm2Server.js 启动服务
-```
 
 ## 7.删除文件或者文件夹
 
@@ -112,7 +98,7 @@ ifconfig -a
 1. i 进入编辑
 2. esc 退出编辑
 3. wq 保存退出
-4.q! 不保存退出
+4. q! 不保存退出
 5. wq! 强制保存退出
 ```
 
