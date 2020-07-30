@@ -49,6 +49,7 @@ git 指令
 
 3.cd /usr/local/nginx/conf/vhost/
 4.cp xx.conf yy.conf 复制一份
+~~~
     //有 api
     server
 {
@@ -88,7 +89,8 @@ expires      30d;
 }
 
 }
-
+~~~
+~~~
 //没有 api
 {
     listen 80;
@@ -117,6 +119,7 @@ location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
 }
 
 }
+~~~
 
 5.vim 文件
 6.按住 i 进入编辑
