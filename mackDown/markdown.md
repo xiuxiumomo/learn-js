@@ -133,3 +133,9 @@ location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
 src/utils/index
 //前提是清理缓存：git rm -r --cached .
 ~~~
+## 在本地新建文件夹，从远程拉取代码
+~~~
+git init # 初始化一个repo
+git remote add origin http://****.git # 把****设置为第一步创建的repo的origin
+git pull origin master # 获取origin的master分支
+~~~
