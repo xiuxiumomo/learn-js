@@ -41,4 +41,8 @@ cd /usr/local/software/nginx/nginx-1.17.6
 cd  /usr/local/nginx/sbin/
 //启动
 ./nginx
+
+
+/usr/local/nginx/sbin/nginx -t //检查
+/usr/local/nginx/sbin/nginx -s  reload //重启
 ~~~
