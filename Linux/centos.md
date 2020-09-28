@@ -46,3 +46,15 @@ cd  /usr/local/nginx/sbin/
 /usr/local/nginx/sbin/nginx -t //检查
 /usr/local/nginx/sbin/nginx -s  reload //重启
 ~~~
+
+## 更新命令
+~~~
+yum -y update
+~~~
+
+## 安装nodejs
+
+~~~
+curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+yum install -y nodejs
+~~~
