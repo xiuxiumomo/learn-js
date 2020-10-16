@@ -94,6 +94,7 @@ wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.r
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 
 3.yum install -y jenkins //下载jenkins
+3.1如果报错更换key  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 4.vi /etc/sysconfig/jenkins //进入配置文件
 5.JENKINS_user //这里默认是jenkins 需要修改为root 防止后面jenkins操作的权限问题
 6.service jenkins start/stop/restart //启动jenkins
@@ -128,5 +129,9 @@ cp -r /var/lib/jenkins/workspace/vueweb/dist/ /home/product/vue-learn/  //从构
 ### 3.自动发布
 > 每次git commit 后项目自动拉取代码并且发布的配置
 ~~~
-1.系统管理->系统配置->github
+1.系统管理->系统配置->github->凭据选择secret text
+2.第一个没有凭据去到github->项目->setting->webhook->addwebhook->Payload URL:http://193.112.176.177:8080/github-webhook/ 保存
+3.保存
 ~~~
+
+### 4.gitpush后自动发布了

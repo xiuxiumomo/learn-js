@@ -26,6 +26,7 @@ rm -rf a //强制删除且不询问
 cp 1.txt 2.txt //复制文件
 
 cp -r test/ test2 //复制文件夹
+cp -r test/* test2 //test test2都存在 将test文件覆盖到test2
 
 ```
 
