@@ -5,11 +5,9 @@
 
 - 此时再使用“fdisk -l”命令可以看到，新的分区xvdb1已经建立完成了。
 
-- 这时候需要注意，有两种情况。
-第一种，你这个数据盘是新购买的，以前没有用过（没有存储过数据），那么就要对其进行格式化，使用“mkfs.ext3 /dev/xvdb1”命令。
-第二种，如果你之前就有数据盘，只是你把系统盘重置了，需要将数据盘再次挂载到重置后的系统上，那么就不要对其格式化（跳过此步骤），直接执行后面的步骤挂载就可以了。
+- 这时候需要注意，有两种情况。第一种，你这个数据盘是新购买的，以前没有用过（没有存储过数据），那么就要对其进行格式化，使用“mkfs.ext3 /dev/xvdb1”命令。第二种，如果你之前就有数据盘，只是你把系统盘重置了，需要将数据盘再次挂载到重置后的系统上，那么就不要对其格式化（跳过此步骤），直接执行后面的步骤挂载就可以了。
 
-- 在继续下面的命令前，你需要知道的是，下面那行命令的“/mnt”就是你要把数据盘挂载到的文件夹，如果你想挂载到别的文件夹，比如你自己建立的/mydata，那么就把/mnt改成/mydata，前提是你已经创建了这个目录（创建目录的命令是mkdir）。使用“echo '/dev/xvdb1  /mnt ext3    defaults    0  0' >> /etc/fstab”（不含引号）命令写入新分区信息。然后使用“cat /etc/fstab”命令查看，出现以下信息就表示写入成功。
+- 在继续下面的命令前，你需要知道的是，下面那行命令的“/mnt”就是你要把数据盘挂载到的文件夹，如果你想挂载到别的文件夹，比如你自己建立的/mydata那么就把/mnt改成/mydata，前提是你已经创建了这个目录（创建目录的命令是mkdir）。使用“echo '/dev/xvdb1  /mnt ext3    defaults    0  0' >> /etc/fstab”（不含引号）命令写入新分区信息。然后使用“cat /etc/fstab”命令查看，出现以下信息就表示写入成功。
 
 - 最后，使用“mount -a”命令挂载新分区，然后用“df -h”命令查看，出现以下信息就说明挂载成功，可以开始使用新的分区了。
 
@@ -240,10 +238,10 @@ server {
 ```
 #这里一定要加root 不然自定义日志不会生效
 user root;
-worker_processes  1;
+worker_processes  4;
 
 events {
-    worker_connections  1024;
+    worker_connections  10240;
 }
 
 
@@ -298,3 +296,40 @@ http {
 }
 
 ```
+
+## 防火墙方面
+
+- 1.设置开机启用防火墙：systemctl enable firewalld.service
+- 2.设置开机禁用防火墙：systemctl disable firewalld.service
+- 3.启动防火墙：systemctl start firewalld
+- 4.关闭防火墙：systemctl stop firewalld
+- 5.检查防火墙状态：systemctl status firewalld 
+
+### 1.开放指定端口
+
+- 1.查看防火墙状态：firewall-cmd --state
+- 2.重新加载配置：firewall-cmd --reload
+- 3.查看开放的端口：firewall-cmd --list-ports
+- 4.开启防火墙端口：firewall-cmd --zone=public --add-port=9200/tcp --permanent
+- 5.关闭防火墙端口：firewall-cmd --zone=public --remove-port=9200/tcp --permanent
+
+### 2.开启对外端口号
+
+> 添加端口 返回 success 代表成功（--permanent永久生效，没有此参数重启后失效）
+
+```
+//单个开放
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+
+//批量开放
+firewall-cmd --zone=public --add-port=80-85/tcp --permanent
+
+
+//关闭端口
+firewall-cmd --zone=public --remove-port=443/tcp --permanent
+
+//重载
+firewall-cmd --reload
+```
+

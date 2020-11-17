@@ -39,3 +39,19 @@ mv 3.txt test //将3.txt移动到test文件夹下面
 mv test test2 //如果test2存在 将test移动到test2下面。如果test2不存在test改名为test2
 ```
 
+## 压缩文件
+
+~~~
+tar -czvf a.tar.gz 1.txt 2.txt  //将1.txt 2.txt 压缩成a.tar.gz
+//解压文件
+tar zvxf 压缩文件名.tar.gz 
+
+-c  压缩
+-x  解压
+-z  支持gzip解压文件
+-v  显示操作过程
+-f  使用档名，请留意，在f之后要立即接档名！不要再加参数！
+~~~
+
+
+
