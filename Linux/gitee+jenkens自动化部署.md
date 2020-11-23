@@ -93,4 +93,6 @@ pm2 restart all
 
 [![DJ6kHH.md.png](https://s3.ax1x.com/2020/11/23/DJ6kHH.md.png)](https://imgchr.com/i/DJ6kHH)
 
+每次提交代码，自动触发构建过程。
+
 
