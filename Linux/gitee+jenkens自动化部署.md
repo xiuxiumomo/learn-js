@@ -1,5 +1,15 @@
 ## 1.jenkens的安装
-
+>执行以下指令安装
+- 1.yum install -y java 安装java环境
+- 2.wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+- 3.sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+- 4.yum install -y jenkins
+- 5.vi /etc/sysconfig/jenkins  修改JENKINS_USER,这里默认是jenkins 需要修改为root 防止后面jenkins操作的权限问题
+- 6.service jenkins start/stop/restart //重启
+- 7.在浏览器地址栏输入ip+端口
+- 8.输入 /var/lib/jenkins/secrets/initialAdminPassword 查看默认密码
+- 9.选择推荐安装
+- 10.设置用户 jack 123
 
 ## 2.jenkens服务器配置(gitee)
 
