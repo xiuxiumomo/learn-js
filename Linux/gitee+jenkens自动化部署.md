@@ -7,7 +7,7 @@
 - 5.vi /etc/sysconfig/jenkins  修改JENKINS_USER,这里默认是jenkins 需要修改为root 防止后面jenkins操作的权限问题
 - 6.service jenkins start/stop/restart //重启
 - 7.在浏览器地址栏输入ip+端口
-- 8.输入 /var/lib/jenkins/secrets/initialAdminPassword 查看默认密码
+- 8.输入  cat /var/lib/jenkins/secrets/initialAdminPassword 查看默认密码
 - 9.选择推荐安装
 - 10.设置用户 jack 123
 
@@ -15,7 +15,7 @@
 
 ### 2.1基本的插件 
 
-- jenkens->插件管理-> 添加Gitee Plugin  Publish Over SSH
+- jenkens->插件管理-> 添加Gitee Plugin  Publish Over SSH,Nodejs,gitee三个，安装完后重启
 
 ### 2.2配置gitee
 
