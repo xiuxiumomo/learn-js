@@ -42,6 +42,8 @@ mv test test2 //如果test2存在 将test移动到test2下面。如果test2不�
 ## 压缩文件
 
 ~~~
+tar zcvf 2020-11-15-23.tar.gz 2020-11-15-access.log 
+
 tar -czvf a.tar.gz 1.txt 2.txt  //将1.txt 2.txt 压缩成a.tar.gz
 //解压文件
 tar zvxf 压缩文件名.tar.gz 

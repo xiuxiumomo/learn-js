@@ -53,14 +53,14 @@ ulimit -a 查看open files 一般是65535
 ```
 - 2.查看cpu核 
 ```
-cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l
+cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l cpu个数
+cat /proc/cpuinfo| grep "processor"| wc -l cpu核数
 ```
 - 2.nginx.conf配置
 
 ```
 user root;
 worker_processes  4; ##与cpu的核数一致 如果不写可以使用 auto
-
 events {
     worker_connections  16300; ##这个值是根据 (65535/4)取整数出来的
     multi_accept on;  ## events区域下accept_mutex参数将使每个可用的worker进程逐个接受新连接
@@ -71,7 +71,7 @@ events {
 
 http {
     # base config
-	server_tokens off;
+	  server_tokens off;
     include       mime.types;
     default_type  application/octet-stream;
     sendfile        on;
@@ -109,6 +109,8 @@ http {
 	client_max_body_size 100m;
 	client_header_buffer_size 256k;
 	large_client_header_buffers 4 256k;
+
+
 	
 	
 	proxy_redirect off;
