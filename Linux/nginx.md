@@ -8,8 +8,19 @@
 - 4.^~ : 表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录
 - 5.@ : "@" 定义一个命名的 location，使用在内部定向时，例如 error_page
 
+```
+//排名顺序
 
-备注：匹配的优先级  = > ^~ > ~ = ~*
+location = /uri 　　　=开头表示精确匹配，只有完全匹配上才能生效。
+location ^~ /uri 　　^~ 开头对URL路径进行前缀匹配，并且在正则之前。
+location ~ pattern 　~开头表示区分大小写的正则匹配。
+location ~* pattern 　~*开头表示不区分大小写的正则匹配。
+location /uri 　　　　不带任何修饰符，也表示前缀匹配，但是在正则匹配之后。
+location / 　　　　　通用匹配，任何未匹配到其它location的请求都会匹配到，相当于switch中的default。
+
+```
+
+
 ```
 
 location = / {
@@ -305,7 +316,7 @@ location /api {
 }
 ```
 
-- 2.配置反向代理时，移除前缀。比如我们的服务http://demo.com/users/aaa/bbb, 我们想要代理到http://users.com/aaa/bbb，即切换域名的同时，去掉users前缀。**区别是proxy_pass 结尾的/.**
+- 2.配置反向代理时，移除前缀。比如我们的服务http://demo.com/users/aaa/bbb, 我们想要代理到http://users.com/aaa/bbb，即切换域名的同时，去掉users前缀。 ***区别是proxy_pass 结尾的/.***
 
 ```
 location ^~/users/ {
