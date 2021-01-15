@@ -139,3 +139,8 @@ git init # 初始化一个repo
 git remote add origin http://****.git # 把****设置为第一步创建的repo的origin
 git pull origin master # 获取origin的master分支
 ~~~
+
+## git clone 太慢了
+- github.com 替换成 github.com.cnpmjs.org
+
+>
