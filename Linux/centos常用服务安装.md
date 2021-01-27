@@ -36,7 +36,12 @@ mysql -u root -p
 
 mysql > use mysql;
 mysql > update user set password=password('jack123') where user='root';
+//mysql8
+mysql > alter user 'root'@'localhost' identified with mysql_native_password by 'jack123'
+mysql > flush privileges;
 mysql > exit;
+
+
 
 //重新启动
 service mysqld restart
