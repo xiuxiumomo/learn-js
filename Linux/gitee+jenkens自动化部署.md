@@ -32,6 +32,8 @@
 
 - 3.sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
+- 3.1 rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key  
+
 - 4.yum install -y jenkins
 
 - 5.vi /etc/sysconfig/jenkins  修改JENKINS_USER,这里默认是jenkins 需要修改为root 防止后面jenkins操作的权限问题导致构建失败
