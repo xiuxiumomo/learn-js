@@ -1,15 +1,12 @@
-let person = {
-  age: 20
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.sayName = function () {
+    return this.name;
+  };
 }
-
-Object.defineProperty(person,'name',{
-  configurable: true,
-  enumerable: false,
-  writable: true,
-  value: undefined
-})
-
-
-for(let k in person) {
-  console.log(k)
-}
+Person.prototype.sex = 'man'
+let p = new Person('jack',20)
+console.log(p.hasOwnProperty('name'))
+console.log(p.hasOwnProperty('sex'))
+console.log('sex' in p)
