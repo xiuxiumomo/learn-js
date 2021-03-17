@@ -51,9 +51,24 @@ function arraySort(arr, rank = 1) {
   if (!isArray) return arr;
   //升序
   if (rank === 1) {
-    return arr.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+    return arr.sort((a, b) => a-b);
   } else {
     //降序
-    return arr.sort((a, b) => (a < b ? 1 : a > b ? -1 : 0));
+    return arr.sort((a, b) => b-a);
   }
+}
+
+/**
+ * 
+ * @param {*} nameString  dom身上的class
+ * @param {*} targetClass 要删除的target
+ * @returns 
+ */
+function deleteClass(nameString,targetClass) {
+  let classNames = nameString.split(/\s+/);
+  let idx = classNames.indexOf(targetClass);
+  if(idx>-1) {
+    classNames.splice(i,1);
+  }
+  return classNames.join(" ")
 }
