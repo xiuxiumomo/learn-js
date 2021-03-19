@@ -8,13 +8,13 @@
   </head>
   <body>
     <button id="btn">创造</button>
+    <script src="./08.js"></script>
     <script>
-     let observer = new MutationObserver(()=>{console.log('页面发生变化了')})
-
-     observer.observe(document.getElementById('btn'),{attributes: true})
-     document.getElementById('btn').addEventListener('click',function(){
-       this.className = 'jakc'
-     })
+     let handler = function() {
+       console.log('hi')
+     }
+     let dom = document.getElementById('btn')
+     utilEvent.addHandler(dom,'click',handler)
     </script>
     
   </body>
