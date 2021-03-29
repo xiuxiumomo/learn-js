@@ -83,6 +83,7 @@ location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
 # 毕竟目前的一些框架的流行，带.php、.jsp后缀的情况很少了
 location / {
     proxy_pass http://tomcat:8080/
+}
 
 ~~~
 
