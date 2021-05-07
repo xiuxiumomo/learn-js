@@ -144,4 +144,9 @@ git pull origin master # 获取origin的master分支
 - github.com 替换成 github.com.cnpmjs.org
 
 
-## 
+## 重新修改git仓库名字
+```
+git push --delete origin dev
+git branch -m dev develop
+git push origin develop
+``` 
