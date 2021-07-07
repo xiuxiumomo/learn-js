@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div>页面渲染了</div>
-  <script>
-    setTimeout(()=>{
-      alert('页面渲染了')
-    },0)
-     Promise.resolve(()=>{
-       '执行微任务'
-     }).then((res)=>{
-       alert(res)
-     })
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      .wrapper {
+        min-height: 100%;
+        margin-bottom: -50px;
+      }
+      .push,
+      .footer {
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div>内容区域</div>
+      <div class="push"></div>
+    </div>
+    <div class="footer">底部</div>
+    <script>
+      function getUrl(url) {
+        //圖片事件加載
+        var img = new Image();
+        img.onload = function () {
+          if (this.complete == true) {
+            // 改了这里
+            alert(url);
+          }
+        };
+        img.onerror = function () {
+          return "paocode2.png";
+        };
+        img.src = url;
+      }
+      var src =
+        "http://7xpcvl.com1.z0.glb.clouddn.com/apicloud/1f55c7b4b2f505ccb89142dba157e40f.png";
+      getUrl(src); // 改了这里
+    </script>
+  </body>
 </html>
