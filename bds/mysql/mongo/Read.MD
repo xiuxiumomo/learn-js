@@ -212,3 +212,170 @@ db.collection.remove(
 - query :（可选）删除的文档的条件。
 - justOne : （可选）如果设为 true 或 1，则只删除一个文档，如果不设置该参数，或使用默认值 false，则删除所有匹配条件的文档。
 - writeConcern :（可选）抛出异常的级别
+
+
+```
+db.col.insert({title: 'MongoDB 教程', 
+    description: 'MongoDB 是一个 Nosql 数据库',
+    by: '菜鸟教程',
+    url: 'http://www.runoob.com',
+    tags: ['mongodb', 'database', 'NoSQL'],
+    likes: 100
+})
+```
+
+### 8.表查询
+
+MongoDB 查询文档使用 find() 方法。
+```
+db.collection.find(query, projection)
+```
+如果你需要以易读的方式来读取数据，可以使用 pretty() 方法，语法格式如下：
+```
+db.col.find().pretty()
+```
+除了 find() 方法之外，还有一个 findOne() 方法，它只返回一个文档。
+
+**MongoDB与RDBMS Where语据比较**
+```
+
+操作	格式	范例	RDBMS中的类似语句
+等于   db.col.find({"by":"菜鸟教程"}).pretty()  where by = '菜鸟教程'
+小于   db.col.find({"likes":{$lt:50}}).pretty()   where likes < 50
+小于或等于 db.col.find({"likes":{$lte:50}}).pretty() where likes <= 50
+大于 db.col.find({"likes":{$gt:50}}).pretty() where likes > 50
+大于或等于  db.col.find({"likes":{$gte:50}}).pretty()  where likes >= 50
+不等于 db.col.find({"likes":{$ne:50}}).pretty()  where likes != 50
+```
+
+**MongoDB AND 条件**
+MongoDB 的 find() 方法可以传入多个键(key)，每个键(key)以逗号隔开，即常规 SQL 的 AND 条件。
+```
+db.col.find({key1:value1, key2:value2}).pretty()
+
+
+> db.col.find({"by":"菜鸟教程", "title":"MongoDB 教程"}).pretty()
+{
+        "_id" : ObjectId("56063f17ade2f21f36b03133"),
+        "title" : "MongoDB 教程",
+        "description" : "MongoDB 是一个 Nosql 数据库",
+        "by" : "菜鸟教程",
+        "url" : "http://www.runoob.com",
+        "tags" : [
+                "mongodb",
+                "database",
+                "NoSQL"
+        ],
+        "likes" : 100
+}
+```
+
+
+**MongoDB OR 条件**
+MongoDB OR 条件语句使用了关键字 $or,语法格式如下：
+
+```
+>db.col.find(
+   {
+      $or: [
+         {key1: value1}, {key2:value2}
+      ]
+   }
+).pretty()   
+```
+
+```
+>db.col.find({$or:[{"by":"菜鸟教程"},{"title": "MongoDB 教程"}]}).pretty()
+{
+        "_id" : ObjectId("56063f17ade2f21f36b03133"),
+        "title" : "MongoDB 教程",
+        "description" : "MongoDB 是一个 Nosql 数据库",
+        "by" : "菜鸟教程",
+        "url" : "http://www.runoob.com",
+        "tags" : [
+                "mongodb",
+                "database",
+                "NoSQL"
+        ],
+        "likes" : 100
+}
+>
+```
+
+**AND 和 OR 联合使用**
+```
+>db.col.find({"likes": {$gt:50}, $or: [{"by": "菜鸟教程"},{"title": "MongoDB 教程"}]}).pretty()
+{
+        "_id" : ObjectId("56063f17ade2f21f36b03133"),
+        "title" : "MongoDB 教程",
+        "description" : "MongoDB 是一个 Nosql 数据库",
+        "by" : "菜鸟教程",
+        "url" : "http://www.runoob.com",
+        "tags" : [
+                "mongodb",
+                "database",
+                "NoSQL"
+        ],
+        "likes" : 100
+}
+```
+
+
+### 9.条件操作符
+
+### 10.MongoDB$type操作符
+
+$type操作符基于BSON类型来检索集合中匹配的数据，并返回结果。
+```
+
+类型	数字	备注
+Double	1	 
+String	2	 
+Object	3	 
+Array	4	 
+Binary data	5	 
+Undefined	6	已废弃。
+Object id	7	 
+Boolean	8	 
+Date	9	 
+Null	10	 
+Regular Expression	11	 
+JavaScript	13	 
+Symbol	14	 
+JavaScript (with scope)	15	 
+32-bit integer	16	 
+Timestamp	17	 
+64-bit integer	18	 
+Min key	255	Query with -1.
+Max key	127
+```
+
+```
+db.col.find({"title" : {$type : 2}})
+或
+db.col.find({"title" : {$type : 'string'}})
+```
+
+### 11.MongoDB Limit与skip方法
+limit()方法基本语法如下
+```
+db.mycol.find().limit(number)
+```
+
+skip() 方法脚本语法格式如下：
+
+```
+db.col.find().skip(1)
+```
+
+### 12.MongoDB排序
+sort()方法基本语法如下所示：
+1是升序 -1是降序
+```
+db.col.find().sort({KEY: 1})
+
+db.mycol.find().sort({age: -1})
+```
+
+
+
